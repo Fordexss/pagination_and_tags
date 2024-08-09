@@ -1,0 +1,31 @@
+{% extends 'index.html' %}
+
+{% block content %}
+<br><br><br><br><br>
+<div class="container" style="width: 700px; height: 500px; margin-bottom: -20px;">
+    {% if messages %}
+        {% for message in messages %}
+            <div class="alert alert-{% if message.tags == 'error' %}danger{% else %}info{% endif %}">
+                {{ message }}
+            </div>
+        {% endfor %}
+    {% endif %}
+    <form method="post">
+        {% csrf_token %}
+        <h2>Вхід</h2>
+        {% for field in form %}
+            <div class="form-group">
+                {{ field.label_tag }}
+                {{ field }}
+                {% if field.errors %}
+                    <div class="invalid-feedback">
+                        {{ field.errors }}
+                    </div>
+                {% endif %}
+            </div>
+        {% endfor %}
+        <button type="submit" class="btn btn-primary">Увійти</button>
+        <p style="margin-top: 25px;">Не зареєстровані? <a href="{% url 'registration' %}">Зареєструватися</a></p>
+    </form>
+</div>
+{% endblock content %}

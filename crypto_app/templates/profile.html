@@ -1,0 +1,32 @@
+{% extends 'index.html' %}
+{% block content %}
+<div class="container mt-5">
+    <h1 class="text-center">Особистий кабінет</h1>
+    {% if messages %}
+    <div class="row justify-content-center mt-3">
+        <div class="col-md-6">
+            {% for message in messages %}
+            <div class="alert alert-{{ message.tags }} alert-dismissible fade show" role="alert">
+                {{ message }}
+                <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            {% endfor %}
+        </div>
+    </div>
+    {% endif %}
+    <div class="row justify-content-center mt-5">
+        <div class="col-md-6">
+            <form method="post" action="." style="width: 150%; margin-left: -20%;">
+                {% csrf_token %}
+                {{ form.as_p }}
+                <button type="submit" class="btn btn-primary">Оновити профіль</button>
+            </form>
+            <form action="{% url 'logout' %}" method="get">
+                <button type="submit" style="margin-left: 40%;" class="btn btn-danger mt-3">Вийти</button>
+            </form>
+        </div>
+    </div>
+</div>
+{% endblock %}
